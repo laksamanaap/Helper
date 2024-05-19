@@ -1,0 +1,11 @@
+// To avoid any potential issue with character encoding
+@charset 'utf-8';
+
+// Variables, functions, mixins, and other configurations
+@import "abstract/index";
+
+// Pages
+@import "pages/index";
+
+// Component
+@import "components/index";

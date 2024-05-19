@@ -1,0 +1,118 @@
+.carousel-container {
+    display: block;
+}
+
+.carousel-image {
+    border-radius: 28px;
+    object-fit: cover;
+    object-position: center;
+    height: toRem(670) !important;
+    filter: brightness(0.6);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    opacity: 1 !important;
+    top: 70% !important;
+    margin-top: 60px;
+}
+
+.carousel-control-next {
+    left: 85px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    height: 100px;
+    width: 100px;
+    outline: white;
+    background-size: 100%, 100%;
+    border-radius: 50%;
+    border: 3px solid white;
+    padding: 30px;
+}
+
+.carousel .carousel-control-next-icon {
+    background-image: url("../../assets/icons/arrow-right-carousel.svg")
+}
+
+.carousel .carousel-control-prev-icon {
+    background-image: url("../../assets/icons/arrow-left-carousel.svg")
+}
+
+.carousel-caption {
+    position: absolute;
+    right: 20% !important;
+    bottom: 1.25rem;
+    left: 5% !important;
+    top: 6% !important;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    text-align: left !important;
+}
+
+.carousel-text {
+    color: $yellow-light;
+    &__title {
+        font-size: toRem(100);
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        line-height: 1.20;
+    }
+
+    &__subtitle {
+        font-size: toRem(18);
+        max-width: 50%;
+        margin-top: toRem(16);
+    }
+}
+
+.scroll-down-wrapper {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    // flex-direction: row;
+    bottom: 35px;
+    right: 50px;
+    gap: 8px;
+}
+
+.scroll-down-wrapper span {
+    color: $yellow-light;
+    font-weight: 400;
+    margin-right: 10px;
+}
+
+.scroll-down-button {
+    // padding: 15px 30px;
+    padding: 13px 35px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 75px;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(2.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.scroll-down-icon {
+    width: 24px;
+    height: 24px;
+    animation: scrollAnimation 1s infinite alternate;
+}
+
+
+@keyframes scrollAnimation {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(10px);
+    }
+}
