@@ -10,7 +10,7 @@ interface AxiosHelperProps {
 }
 
 const axiosHelper = async ({ url, method, data }: AxiosHelperProps): Promise<any> => {
-  const baseUrl = "https://api.ultramedica-apps.com"; // Base URL
+  const baseUrl = "YOUR API URL"; // Base URL
   console.log(baseUrl)
   let accessToken = Cookies.get('accessToken');
   let config: AxiosRequestConfig = { 
