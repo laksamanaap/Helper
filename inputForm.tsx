@@ -1,13 +1,15 @@
+import { Span } from 'next/dist/trace';
 import React from 'react';
 
 interface InputFormProps {
-    label: string;
+    label?: string;
     type: string;
     id: string;
     htmlFor: string;
     placeholder?: string;
     width?: string;
     value: string;
+    important?: boolean;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -19,13 +21,16 @@ export default function InputForm({
     placeholder,
     width,
     value,
+    important,
     onChange
 }: InputFormProps) {
     return (
         <div className={`mb-5 ${width === 'half' && 'w-1/2'}`}>
-            <label htmlFor={htmlFor} className="block text-left mb-2 text-sm font-medium text-gray-900 dark:text-black">
-                {label}
-            </label>
+            {label && (
+                <label htmlFor={htmlFor} className="block text-left mb-2 text-sm font-medium text-gray-900 dark:text-black">
+                    {label} {important === true && (<span className='text-red-500 font-semibold'>*</span>)}
+                </label>
+            )}
             <input
                 type={type}
                 id={id}
