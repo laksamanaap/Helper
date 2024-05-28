@@ -10,7 +10,7 @@ interface AxiosHelperProps {
 }
 
 const axiosHelper = async ({ url, method, data }: AxiosHelperProps): Promise<any> => {
-  const baseUrl = "YOUR API URL"; // Base URL
+  const baseUrl = "your API url"; // Base URL
   console.log(baseUrl)
   let accessToken = Cookies.get('accessToken');
   let config: AxiosRequestConfig = { 
@@ -35,18 +35,22 @@ const axiosHelper = async ({ url, method, data }: AxiosHelperProps): Promise<any
       console.error('Response Error:', error.response.data);
       console.error('Response Status:', error.response.status);
       console.error('Response Headers:', error.response.headers);
-
-      // Temporary (nyobak lur)
-      if (error.response.status === 404) {
-        // Throw to catch
-        throw new Error(error.response.data.additionalInfo);
-      }
+      
+      // if (error.response.status === 404) {
+      //   // Throw to catch
+      //   throw new Error('Username Not Found!');
+      // }
 
       if (error.response.status === 401) {
+      const errorMessage = error?.response.data.additionalInfo || 'Unauthorized';
+      setTimeout(() => {
         Cookies.remove('accessToken');
-        redirect('/auth/login')
+        window.location.reload();
+      }, 7500);
+      throw new Error(errorMessage);
       }
-
+      
+      throw new Error(error?.response.data.additionalInfo)
     } else if (error.request) {
       // The request was made but no response was received
       console.error('Request Error:', error.request);
