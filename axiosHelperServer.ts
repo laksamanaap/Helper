@@ -10,7 +10,7 @@ interface AxiosHelperProps {
 }
 
 const axiosHelperServer = async ({ url, method, data }: AxiosHelperProps): Promise<any> => {
-  const baseUrl = "Your API URL"; // Base URL
+  const baseUrl = "your api url"; // Base URL
   const cookieStore = cookies();
   const accessToken = cookieStore.get('accessToken')?.value;
 
@@ -34,16 +34,21 @@ const axiosHelperServer = async ({ url, method, data }: AxiosHelperProps): Promi
       console.error('Response Status:', error.response.status)
       console.error('Response Headers:', error.response.headers);
 
-      if (error.response.status === 404) {
-        // Throw to catch
-        throw new Error(error.response.data.additionalInfo);
-      }
+      // if (error.response.status === 404) {
+      //   // Throw to catch
+      //   throw new Error(error.response.data.additionalInfo);
+      // }
 
       if (error.response.status === 401) {
+      const errorMessage = error?.response.data.additionalInfo || 'Unauthorized';
+      setTimeout(() => {
         cookies().delete('accessToken');
-        redirect('/auth/login')
+        window.location.reload();
+      }, 7500);
+        throw new Error(errorMessage);
       }
 
+      throw new Error(error?.response.data.additionalInfo)
     } else if (error.request) {
       console.error('Request Error:', error.request);
     } else {
