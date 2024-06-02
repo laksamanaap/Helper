@@ -10,15 +10,22 @@ interface AxiosHelperProps {
 }
 
 const axiosHelper = async ({ url, method, data }: AxiosHelperProps): Promise<any> => {
-  const baseUrl = "your API url"; // Base URL
+  const baseUrl = "Your API URL"; // Base URL
   console.log(baseUrl)
   let accessToken = Cookies.get('accessToken');
   let config: AxiosRequestConfig = { 
     method: method,
     url: `${baseUrl}${url}`, 
     data: data || null,
-    headers: accessToken ? { 'Authorization': `Bearer ${accessToken}` } : undefined
+     headers: {
+      'ApiKey': process.env.NEXT_PUBLIC_API_KEY,
+      ...(accessToken && { 'Authorization': `Bearer ${accessToken}` })
+    }
+    // Depends on your flow
+    // headers: accessToken ? { 'Authorization': `Bearer ${accessToken}` } : undefined
   };
+
+  // console.log(config.headers, 'CONFIG HEADERSSS SLURR')
 
   try {
     const response: AxiosResponse = await axios(config);
@@ -35,18 +42,13 @@ const axiosHelper = async ({ url, method, data }: AxiosHelperProps): Promise<any
       console.error('Response Error:', error.response.data);
       console.error('Response Status:', error.response.status);
       console.error('Response Headers:', error.response.headers);
-      
-      // if (error.response.status === 404) {
-      //   // Throw to catch
-      //   throw new Error('Username Not Found!');
-      // }
 
       if (error.response.status === 401) {
       const errorMessage = error?.response.data.additionalInfo || 'Unauthorized';
       setTimeout(() => {
         Cookies.remove('accessToken');
         window.location.reload();
-      }, 7500);
+      }, 5000);
       throw new Error(errorMessage);
       }
       
