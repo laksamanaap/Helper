@@ -1,11 +1,24 @@
 import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 
+// Convert Date Function
 const convertDateString = (dateStr: any, outputFormat = 'dd-MM-yyyy') => {
     if (dateStr) {
       const date = new Date(dateStr);
       return format(date, outputFormat);
     } else {
       return "-";
+    }
+  }
+
+// Convert Date Distance (etc 1 day ago)
+  const convertDateDistance = (prevDate: any) => {
+    if (prevDate) {
+      // Format date from arguments
+      const prev = new Date(prevDate)
+      const curr = new Date()
+      return formatDistanceStrict(prev, curr, { addSuffix: true })
+    } else {
+      return "-"
     }
   }
 
