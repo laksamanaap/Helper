@@ -1,4 +1,16 @@
 <?php
+session_start(); // Start session
+
+// Check if the user is logged in
+if (!isset($_SESSION['level'])) {
+    // If not logged in, redirect to login.php
+    header("Location: login.php");
+    exit(); // Stop code execution
+}
+?>
+
+
+<?php
 // config.php
 $servername = "localhost";
 $username = "root";
