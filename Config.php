@@ -70,3 +70,49 @@ function edit_data(string $table, array $data) {
   $query_result = mysqli_query($conn, $sql);
   print_r($query_result);
 }
+
+function get_user_info($user_id) {
+    global $conn;
+    $sql = "SELECT * FROM tb_users WHERE id = $user_id";
+
+    $result = mysqli_query($conn, $sql);
+ 
+    if ($result && mysqli_num_rows($result) > 0) {
+        $user_info = mysqli_fetch_object($result);
+        return $user_info;
+    } else {
+        return null;
+    }
+}
+
+function get_produk_info($produk_id) {
+    global $conn;
+
+    if ($produk_id === NULL) {
+        return NULL; 
+    }
+
+    $query = "SELECT * FROM tb_produk WHERE id = $produk_id";
+    $result = mysqli_query($conn, $query);
+
+    if (!$result) {
+        die('Query Error: ' . mysqli_error($conn));
+    }
+    return mysqli_fetch_assoc($result);
+}
+
+function search_data(string $table, string $column_name, string $keyword) {
+    global $conn;
+
+    $sql = "SELECT * FROM $table WHERE $column_name LIKE '%$keyword%' AND is_deleted = 0";
+    $query_result = mysqli_query($conn, $sql);
+
+    $result_objects = [];
+    if ($query_result && mysqli_num_rows($query_result) > 0) {
+        while ($row = mysqli_fetch_object($query_result)) {
+            $result_objects[] = $row;
+        }
+    }
+
+    return $result_objects;
+}
