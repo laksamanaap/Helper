@@ -76,3 +76,17 @@ const axiosHelperGateway = async ({ endpoint, parameter, method  }: AxiosHelperP
 
 export default axiosHelperGateway;
 
+
+// Usage Example 
+const payload = {
+  pageIndex: 1,
+  pageSize: 30,
+  showDeleted: false,
+  ascending: true
+}
+
+const response: AxiosResponse = await axiosHelperGateway({
+    endpoint: 'YOUR API ENDPOINT',
+    method: 'POST',
+    parameter: payload // Will be strigify in the axiosHelperGateway
+  })
